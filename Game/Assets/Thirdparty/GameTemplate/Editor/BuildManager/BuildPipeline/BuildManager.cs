@@ -14,10 +14,6 @@ public static class BuildManager {
 	const string butlerRelativePath = @"Thirdparty/GameTemplate/Editor/BuildManager/butler/butler.exe";
 
 	public static void RunBuildSequnce(BuildSequence sequence, ChangelogData changelog) {
-		// Init
-		GameManager.InstanceEditor.buildNameString = string.IsNullOrEmpty(changelog.updateName) ? $"{PlayerSettings.bundleVersion}" : $"{PlayerSettings.bundleVersion} - {changelog.updateName}";
-		// End init
-
 		Debug.Log("Start building all");
 		DateTime startTime = DateTime.Now;
 		BuildTarget targetBeforeStart = EditorUserBuildSettings.activeBuildTarget;

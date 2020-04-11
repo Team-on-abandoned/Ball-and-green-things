@@ -1,43 +1,18 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using yaSingleton;
 
-[CreateAssetMenu(fileName = "Game Manager", menuName = "Singletons/GameManager")]
-public class GameManager : Singleton<GameManager> {
-	//Properties
-	public Camera Camera { get {
-			if(mainCamera == null) 
-				mainCamera = Camera.main;
-			return mainCamera;
-	}}
+public class GameManager : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-	//Other singletons
-	public EventManager Events { get; private set; }
-	public AudioManager audioManager;
-
-	//Global data
-	public string buildNameString;
-
-	[NonSerialized] public Camera mainCamera;
-
-	protected override void Initialize() {
-		base.Initialize();
-
-		mainCamera = Camera.main;
-		Events = new EventManager();
-		Input.multiTouchEnabled = false;
-		LeanTween.init(800);
-
-		EventManager.OnSceneLoadEnd += OnSceneLoadEnd;
-	}
-
-	protected override void Deinitialize() {
-		base.Deinitialize();
-
-		EventManager.OnSceneLoadEnd -= OnSceneLoadEnd;
-	}
-
-	void OnSceneLoadEnd(EventData data) {
-		mainCamera = Camera.main;
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

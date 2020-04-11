@@ -21,8 +21,6 @@ public class ChangelogData {
 					jsonString = sr.ReadToEnd();
 
 			data = JsonUtility.FromJson<ChangelogData>(jsonString);
-
-			GameManager.InstanceEditor.buildNameString = PlayerSettings.bundleVersion + " - " + data.updateName;
 		}
 		else {
 			data = null;
