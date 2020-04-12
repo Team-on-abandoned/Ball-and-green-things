@@ -6,11 +6,11 @@ public class Enemy : MonoBehaviour {
 
 	[Header("Random dance anim")]
 	[SerializeField] byte danceAnimationsCount = 7;
-	Animator anim;
+	Animator anim = null;
 
 	[Header("Random mesh")]
-	[SerializeField] GameObject capsule;
-	[SerializeField] GameObject[] meshPrefab;
+	[SerializeField] GameObject capsule = null;
+	[SerializeField] GameObject[] meshPrefab = null;
 
 	private void Awake() {
 		Destroy(capsule.gameObject);
