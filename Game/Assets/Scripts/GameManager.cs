@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] LineRenderer shootLine;
 	[SerializeField] LayerMask hitMask;
 	[SerializeField] Player player;
+	[SerializeField] MainMenu mainMenu;
 
 	bool isPlaying = false;
 
@@ -53,15 +54,21 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartGame() {
-		isPlaying = true;
+		LeanTween.delayedCall(0.2f, () => {
+			isPlaying = true;
+		});
 	}
 
 	public void OnWin() {
-		isPlaying = true;
+		isPlaying = false;
 		PlayerPrefs.SetInt(LEVEL_KEY, ++currLevel);
+		mainMenu.Show();
+		Application.LoadLevel(Application.loadedLevel);
 	}
 
 	public void OnLose() {
-		isPlaying = true;
+		isPlaying = false;
+		mainMenu.Show();
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }

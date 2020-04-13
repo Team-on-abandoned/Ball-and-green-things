@@ -29,7 +29,17 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void Update() {
+	private void OnDestroy() {
+		LeanTween.cancel(gameObject, false);
+	}
 
+	private void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag("Bullet")) {
+			LeanTween.delayedCall(gameObject, 0.1f, () => {
+				if (other != null)
+					Destroy(other.gameObject);
+				Destroy(gameObject);
+			});
+		}
 	}
 }

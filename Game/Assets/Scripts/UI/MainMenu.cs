@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour {
 #endif
 
 	private void Start() {
-		Show();
+		levelTextField.text = $"Level: {GameManager.instance.currLevel}";
 	}
 
 	public void OnPlayClick() {
