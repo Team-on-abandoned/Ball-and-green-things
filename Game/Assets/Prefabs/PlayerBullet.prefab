@@ -15965,11 +15965,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2604190077140194398}
-  - component: {fileID: 2604190077140194399}
   - component: {fileID: 2604190077140194396}
   - component: {fileID: 2604190077140194397}
   - component: {fileID: 2604190077140194386}
   - component: {fileID: 2604190077140194387}
+  - component: {fileID: 3883336146935431187}
   m_Layer: 0
   m_Name: PlayerBullet
   m_TagString: Bullet
@@ -16063,21 +16063,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2604190077140194399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604190077140194384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6340812002db77e49882678073ed522a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 5
-  bulletSpawnPos: {fileID: 0}
-  bulletPrefab: {fileID: 0}
 --- !u!33 &2604190077140194396
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16154,6 +16139,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3883336146935431187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604190077140194384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a8d9e94c609d14c95d9defe3e4f52d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explodePrefab: {fileID: 3801103218639523335, guid: 1362da3573e2ebf468c101d33d6a719a,
+    type: 3}
 --- !u!1 &2604190077162686258
 GameObject:
   m_ObjectHideFlags: 0

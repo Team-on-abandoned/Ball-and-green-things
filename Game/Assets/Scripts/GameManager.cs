@@ -57,7 +57,8 @@ public class GameManager : MonoBehaviour {
 
 			player.OnHold(lastTouchPos, holdTime);
 		}
-		else if (Input.GetMouseButtonUp(0)) {
+		
+		if (Input.GetMouseButtonUp(0)) {
 			shootLine.gameObject.SetActive(false);
 			player.ShootTo(lastTouchPos, holdTime);
 		}
