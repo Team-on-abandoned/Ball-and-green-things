@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] LayerMask hitMask;
 	[SerializeField] Player player;
 	[SerializeField] MainMenu mainMenu;
+	[SerializeField] Transform[] jumpPos;
 
 	bool isPlaying = false;
 
@@ -70,12 +71,29 @@ public class GameManager : MonoBehaviour {
 
 	public void OnWin() {
 		isPlaying = false;
+		shootLine.gameObject.SetActive(false);
+		player.ShootTo(lastTouchPos, holdTime);
 		PlayerPrefs.SetInt(LEVEL_KEY, ++currLevel);
 
 		foreach (var enemy in enemies)
 			enemy.OnWin();
 
-		LeanTween.delayedCall(5f, () => { 
+		for(int i = 1; i < jumpPos.Length; ++i) {
+			int curr = i;
+			LeanTween.value(0.0f, 1.0f, 1.0f)
+			.setDelay(1.0f * curr)
+			.setOnUpdate((float f) => {
+				Vector3 newPos = Vector3.Lerp(jumpPos[curr - 1].position, jumpPos[curr].position, f);
+				if(f < 0.5f)
+					newPos.y = Mathf.Lerp(jumpPos[curr - 1].position.y, jumpPos[curr].position.y + 3.0f, f * 2f);
+				else
+					newPos.y = Mathf.Lerp(jumpPos[curr].position.y + 3.0f, jumpPos[curr].position.y, (f - 0.5f) * 2f);
+				newPos.y = Mathf.Sqrt(newPos.y);
+				player.transform.position = newPos;
+			});
+		}
+
+		LeanTween.delayedCall(7.0f, () => {
 			Application.LoadLevel(Application.loadedLevel);
 		});
 	}
