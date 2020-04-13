@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Start() {
-		if(Random.Range(0, 10) == 0) {
+		if(Random.Range(0, 8) == 0) {
 			Vector3 pos = transform.position;
 			pos.y = -0.89f;
 			transform.position = pos;
