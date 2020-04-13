@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 
 	[System.NonSerialized] public int currLevel = 0;
+	[System.NonSerialized] public List<Enemy> enemies = new List<Enemy>();
+
+	public PathLine pathLine;
 
 	[SerializeField] LineRenderer shootLine;
 	[SerializeField] LayerMask hitMask;
@@ -29,6 +32,10 @@ public class GameManager : MonoBehaviour {
 		if (!isPlaying || !player.isCanShoot)
 			return;
 
+		if(pathLine.EnemiesCount == 0) {
+			OnWin();
+		}
+
 		if (Input.GetMouseButtonDown(0)) {
 			shootLine.gameObject.SetActive(true);
 			holdTime = 0.0f;
@@ -43,6 +50,8 @@ public class GameManager : MonoBehaviour {
 			if (Physics.Raycast(ray, out hit, 50f, hitMask)) {
 				lastTouchPos = new Vector3(hit.point.x, 0.01f, hit.point.z);
 				shootLine.SetPosition(1, lastTouchPos);
+				pathLine.SetWidth(player.GetPathWidth());
+				shootLine.startWidth = shootLine.endWidth = player.GetBulletWidth();
 			}
 
 			player.OnHold(lastTouchPos, holdTime);
@@ -62,13 +71,17 @@ public class GameManager : MonoBehaviour {
 	public void OnWin() {
 		isPlaying = false;
 		PlayerPrefs.SetInt(LEVEL_KEY, ++currLevel);
-		mainMenu.Show();
-		Application.LoadLevel(Application.loadedLevel);
+
+		foreach (var enemy in enemies)
+			enemy.OnWin();
+
+		LeanTween.delayedCall(5f, () => { 
+			Application.LoadLevel(Application.loadedLevel);
+		});
 	}
 
 	public void OnLose() {
 		isPlaying = false;
-		mainMenu.Show();
 		Application.LoadLevel(Application.loadedLevel);
 	}
 }

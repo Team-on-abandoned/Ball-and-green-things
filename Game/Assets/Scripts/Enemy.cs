@@ -20,16 +20,13 @@ public class Enemy : MonoBehaviour {
 		anim = spawnedMesh.GetComponent<Animator>();
 	}
 
-	void Start() {
-		if(Random.Range(0, 8) == 0) {
-			Vector3 pos = transform.position;
-			pos.y = -0.89f;
-			transform.position = pos;
-			anim.SetInteger("RandomDanceAnim", Random.Range(0, danceAnimationsCount));
-		}
+	private void Start() {
+		GameManager.instance.enemies.Add(this);
 	}
 
 	private void OnDestroy() {
+		GameManager.instance.enemies.Remove(this);
+		GameManager.instance.pathLine.enemiesInRange.Remove(this);
 		LeanTween.cancel(gameObject, false);
 	}
 
@@ -40,6 +37,18 @@ public class Enemy : MonoBehaviour {
 					Destroy(other.gameObject);
 				Destroy(gameObject);
 			});
+		}
+	}
+
+	public void OnAnimStart() {
+		Vector3 pos = transform.position;
+		pos.y = -0.89f;
+		transform.position = pos;
+	}
+
+	public void OnWin() {
+		if (Random.Range(0, 5) == 0) {
+			anim.SetInteger("RandomDanceAnim", Random.Range(0, danceAnimationsCount));
 		}
 	}
 }

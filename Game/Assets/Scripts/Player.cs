@@ -12,6 +12,14 @@ public class Player : MonoBehaviour {
 
 	GameObject bullet;
 
+	public float GetPathWidth() {
+		return transform.localScale.x + 0.3f;
+	}
+
+	public float GetBulletWidth() {
+		return bullet?.transform?.localScale.x ?? 0;
+	}
+
 	public void InitShoot() {
 		bullet = Instantiate(bulletPrefab, bulletSpawnPos.position, Quaternion.identity, null);
 		bullet.transform.localScale = minScale;
@@ -29,7 +37,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ShootTo(Vector3 pos, float holdTime) {
-		Rigidbody rb = bullet.GetComponent<Rigidbody>();
+		Rigidbody rb = bullet?.GetComponent<Rigidbody>();
+		if (rb == null)
+			return;
 		Vector3 velocity = (pos - rb.transform.position).normalized;
 		velocity.y = 0.0f;
 		rb.velocity = velocity.normalized * bulletSpeed;
