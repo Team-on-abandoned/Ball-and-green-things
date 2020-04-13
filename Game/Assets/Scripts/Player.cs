@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public float GetBulletWidth() {
-		return bullet?.transform?.localScale.x ?? 0;
+		return bullet != null ? bullet.transform.localScale.x : 0;
 	}
 
 	public void InitShoot() {
@@ -27,6 +27,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void OnHold(Vector3 pos, float holdTime) {
+		if (bullet == null)
+			return;
+
 		Vector3 scaleChange = Vector3.one * holdTime / 100f;
 		bullet.transform.localScale += scaleChange;
 		transform.localScale -= scaleChange;
@@ -37,9 +40,10 @@ public class Player : MonoBehaviour {
 	}
 
 	public void ShootTo(Vector3 pos, float holdTime) {
-		Rigidbody rb = bullet?.GetComponent<Rigidbody>();
-		if (rb == null)
+		if (bullet == null)
 			return;
+
+		Rigidbody rb = bullet.GetComponent<Rigidbody>();
 		Vector3 velocity = (pos - rb.transform.position).normalized;
 		velocity.y = 0.0f;
 		rb.velocity = velocity.normalized * bulletSpeed;
